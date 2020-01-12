@@ -22,6 +22,7 @@ const routes = [
 				name:'shop_goods_list',
 				path:'/shop/goods/list',
 				meta:{title:'商品列表'},
+				component:()=>import('../views/shop/goods/list.vue')
 				// component:'shop/goods/list'
 			}
 		]
