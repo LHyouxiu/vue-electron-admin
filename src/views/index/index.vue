@@ -59,7 +59,7 @@
 					</div>
 					<!-- 统计图容器 -->
 					<div ref="myChart" 
-					style="width: 100%;height: 270px;"></div>
+					style="width: 100%;height: 330px;"></div>
 					
 				</el-card>
 			</el-col>
@@ -139,6 +139,7 @@
 </template>
 
 <script>
+	import echarts from 'echarts'
 	export default {
 		data() {
 			return {
@@ -201,6 +202,246 @@
 				return `col-${12/total}`;
 			}
 		},
+		mounted () {
+			this.cartogramChart()
+		},
+		methods: {
+			cartogramChart() {
+				var option = {
+					tooltip: {
+						trigger: "axis", //'axis'坐标轴触发，主要在柱状图，折线图等会使用类目轴的图表中使用
+						axisPointer: {
+							lineStyle: {
+								color: "#57617B"
+							}
+						}
+					},
+					legend: {
+						data: ["制动盘温度", "闸片温度"],
+
+						left: "right",
+						type: "scroll",
+						orient: "horizontal",
+						textStyle: {
+							color: "#A3E2F4",
+							fontSize: 11,
+						},
+						itemWidth: 12,
+						itemHeight: 8,
+						// itemGap: 35
+					},
+					grid: {
+						top: "5%",
+						left: "3%", //grid 组件离容器左侧的距离。
+						right: "2%", //grid 组件离容器右侧的距离。
+						bottom: "5%", //grid 组件离容器下侧的距离。
+						containLabel: true
+					},
+					xAxis: [
+						{
+							name: "制动时间(s)",
+							nameLocation: "middle",
+							nameGap: 25,
+							type: "category",
+							boundaryGap: false, //坐标轴两边留白策略，类目轴和非类目轴的设置和表现不一样
+							axisLine: {
+								lineStyle: {
+									color: "#A3E2F4" //坐标轴线线的颜色。
+								}
+							},
+							data: ["1s", "3s", "5s", "10s", "20s", "30s", "60s", "100s", "150s"]
+						}
+					],
+					yAxis: [
+						{
+							type: "value", 
+							//name: "（件）", //坐标轴名称。
+							name: "温度(℃)",
+							nameLocation: "middle",
+							nameGap: 40,
+							axisTick: {
+								show: true //是否显示坐标轴刻度
+							},
+							axisLine: {
+								lineStyle: {
+									color: "#A3E2F4" //坐标轴线线的颜色
+								}
+							},
+							axisLabel: {
+								margin: 10, //刻度标签与轴线之间的距离
+								textStyle: {
+									fontSize: 12 //文字的字体大小
+								}
+							},
+							splitLine: {
+								show: false,
+								lineStyle: {
+									color: "#A3E2F4" //分隔线颜色设置
+								}
+							}
+						}
+					],
+					series: [
+						{
+							name: "制动盘温度",
+							type: "line",
+							smooth: true,
+							symbol: "circle",
+							symbolSize: 5,
+							showSymbol: false,
+							lineStyle: {
+								normal: {
+									width: 2,
+									color: "rgba(0,136,219,1)"
+								}
+							},
+							areaStyle: {
+								normal: {
+									color: new echarts.graphic.LinearGradient(
+										0,
+										0,
+										0,
+										1,
+										[
+											{
+												offset: 0,
+												color: "rgba(0,136,219,1)"
+											},
+											{
+												offset: 0.8,
+												color: "rgba(0,136,219,0)"
+											}
+										],
+										false
+									),
+									shadowColor: "rgba(0, 0, 0, 0.1)",
+									shadowBlur: 10
+								}
+							},
+							itemStyle: {
+								normal: {
+									color: "rgba(0,136,219,1)",
+									borderColor: "rgba(0,136,219,1)",
+									borderWidth: 12
+								}
+							},
+							data: [
+								152,
+								289,
+								283,
+								296,
+								324,
+								256,
+								164,
+								157,
+								328,
+								334,
+								342,
+								395,
+								485,
+								267,
+								200,
+								394,
+								519,
+								556,
+								590,
+								516,
+								272,
+								216,
+								502,
+								472,
+								512,
+								359,
+								333,
+								176,
+								174,
+								329,
+								373
+							]
+						},
+						{
+							type: "line",
+							name: "闸片温度",
+							smooth: true,
+							symbol: "circle",
+							symbolSize: 5,
+							showSymbol: false,
+							lineStyle: {
+								normal: {
+									width: 2,
+									color: "rgba(82,255,176,1)"
+								}
+							},
+							areaStyle: {
+								normal: {
+									color: new echarts.graphic.LinearGradient(
+										0,
+										0,
+										0,
+										1,
+										[
+											{
+												offset: 0,
+												color: "rgba(82,255,176,1)"
+											},
+											{
+												offset: 0.8,
+												color: "rgba(82,255,176,0)"
+											}
+										],
+										false
+									),
+									shadowColor: "rgba(0, 0, 0, 0.1)",
+									shadowBlur: 10
+								}
+							},
+							itemStyle: {
+								normal: {
+									color: "rgba(82,255,176,1)",
+									borderColor: "rgba(82,255,176,1)",
+									borderWidth: 12
+								}
+							},
+							data: [
+								252,
+								289,
+								283,
+								296,
+								224,
+								256,
+								264,
+								257,
+								228,
+								234,
+								242,
+								295,
+								285,
+								267,
+								200,
+								294,
+								219,
+								256,
+								290,
+								216,
+								272,
+								216,
+								202,
+								272,
+								212,
+								259,
+								233,
+								276,
+								274,
+								229,
+								273
+							]
+						}
+					]
+				};
+				var myChart = echarts.init(this.$refs.myChart);
+				myChart.setOption(option);
+    	}
+		}
 	}
 </script>
 
