@@ -59,7 +59,7 @@
 					</div>
 					<!-- 统计图容器 -->
 					<div ref="myChart" 
-					style="width: 100%;height: 270px;"></div>
+					style="width: 100%;height: 330px;"></div>
 					
 				</el-card>
 			</el-col>
