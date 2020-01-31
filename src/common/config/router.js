@@ -20,10 +20,16 @@ let routes = [
 				component:'index/index'
 			},
 			{
-				// name:'shop_goods_list'
-				// path:'/shop/goods/list',
 				meta:{title:'商品列表'},
 				component:'shop/goods/list'
+			},
+			{
+				meta:{title:'创建商品'},
+				component:'shop/goods/create'
+			},
+			{
+				meta:{title:'相册管理'},
+				component:'image/index'
 			}
 		]
 	},
