@@ -12,6 +12,9 @@ import 'video.js/dist/video-js.css'
 
 Vue.prototype.$video = Video
 
+import VueDND from 'awe-dnd'
+ 
+Vue.use(VueDND)
 Vue.config.productionTip = false
 Vue.use(ElementUI);
 

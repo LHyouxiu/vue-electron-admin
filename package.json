@@ -12,6 +12,7 @@
   },
   "main": "background.js",
   "dependencies": {
+    "awe-dnd": "^0.3.4",
     "bootstrap": "^4.4.1",
     "core-js": "^3.4.4",
     "echarts": "^4.6.0",

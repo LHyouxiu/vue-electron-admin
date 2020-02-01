@@ -44,6 +44,7 @@
               <el-button type="text">重量</el-button>
             </el-form-item>
             <el-form-item label="规格设置">
+              <sku-table></sku-table>
             </el-form-item>
           </el-form>
         </template>
@@ -64,6 +65,7 @@ import { mapState,mapMutations } from 'vuex';
 import baseCreate from '@/components/shop/create/base-create.vue';
 import singleAttrs from '@/components/shop/create/single-attrs.vue';
 import skuCard from '@/components/shop/create/sku/sku-card.vue';
+import skuTable from '@/components/shop/create/sku-table.vue';
 export default {
   data () {
     return {
@@ -73,7 +75,8 @@ export default {
   components: {
     baseCreate,
     singleAttrs,
-    skuCard
+    skuCard,
+    skuTable
   },
   computed: {
     ...mapState({

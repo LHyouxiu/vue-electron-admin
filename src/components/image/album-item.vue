@@ -3,7 +3,11 @@
 	:class="{'active sum-active':active}"
 	@click.stop="$emit('change',index)">
 		{{item.name}}  
-		<el-dropdown class="ml-auto">
+			<span class="btn btn-light btn-sm border ml-auto"
+			v-if="!showOptions">
+				{{item.num}}
+			</span>
+		<el-dropdown class="ml-auto" v-else>
 		  <span class="btn btn-light btn-sm border">
 			{{item.num}}
 			<i class="el-icon-arrow-down el-icon--right"></i>
@@ -28,7 +32,11 @@
 				default:false
 			},
 			item:Object,
-			index:Number
+			index:Number,
+			showOptions:{
+				type:Boolean,
+				default:true
+			}
 		}
 	}
 </script>
