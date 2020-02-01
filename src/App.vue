@@ -2,7 +2,7 @@
   <div id="app">
     <router-view/>
 
-    <el-dialog title="标题" :visible.sync="imageModel" width="80%" top="">
+    <el-dialog title="标题" :visible.sync="imageModel" width="80%" top="5vh">
       <el-container style="position:relative;height: 70vh;margin:-30px -20px">
         <el-header class="d-flex align-items-center border-bottom">
           <!-- 头部 -->
