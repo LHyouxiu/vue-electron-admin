@@ -5,10 +5,14 @@
       <el-color-picker size="mini" v-if="type == 1">
       </el-color-picker>
       <!-- 图片选择 -->
-      <span class="btn btn-light border mr-2" 
-      v-else @click="chooseImage">
-        <i class="el-icon-plus"></i>
-      </span>
+      <template v-else>
+        <span v-if="!item.image" class="btn btn-light border mr-2" 
+          @click="chooseImage">
+          <i class="el-icon-plus"></i>
+        </span>
+        <img v-else :src="item.image" class="rounded" style="width:40px;height:40px;"
+        @click="chooseImage"/>
+      </template>
     </div>
       <input :value="item.name" @input="inputChange"
       class="form-control text-center border-0" 
@@ -58,7 +62,8 @@ export default {
     chooseImage(){
       this.app.chooseImage((res)=>{
         console.log(res)
-      })
+        this.vModel('image',res[0].url)
+      },1)
     }
   }
 }

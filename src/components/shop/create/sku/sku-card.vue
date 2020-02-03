@@ -4,7 +4,8 @@
       规格项:
       <el-input size="mini" style="width:200px"
       :value="item.name" @input="vModel('name',index,$event)">
-        <el-button slot="append" icon="el-icon-more"></el-button>
+        <el-button slot="append" icon="el-icon-more"
+        @click="chooseSkus"></el-button>
       </el-input>
       <el-radio-group size="mini" style="margin-bottom:-10px;"
       :value="item.type" class="ml-2" @input="vModel('type',index,$event)">
@@ -46,6 +47,7 @@
 import skuCardChildren from './sku-card-children';
 import { mapState,mapMutations } from 'vuex';
 export default {
+  inject:['app'],
   components: {
     skuCardChildren
   },
@@ -81,6 +83,12 @@ export default {
     //排序规则卡片
     sortCard(action,index){
       this.sortSkuCard({action,index}) 
+    },
+    //选择规格
+    chooseSkus(){
+      this.app.chooseSkus((res)=>{
+        console.log(res)
+      })
     }
   }
 }
