@@ -2,7 +2,8 @@
   <div class="border py-1 px-2 rounded mr-2 position-relative d-flex align-items-center">
     <div v-if="type != 0">
       <!-- 颜色选择器 -->
-      <el-color-picker size="mini" v-if="type == 1">
+      <el-color-picker size="mini" v-if="type == 1"
+      :value="item.color" @change="onColorChange">
       </el-color-picker>
       <!-- 图片选择 -->
       <template v-else>
@@ -61,9 +62,13 @@ export default {
     //选择图片
     chooseImage(){
       this.app.chooseImage((res)=>{
-        console.log(res)
+        // console.log(res)
         this.vModel('image',res[0].url)
       },1)
+    },
+    //监听颜色选择器
+    onColorChange(e){
+      this.vModel('color',e)
     }
   }
 }

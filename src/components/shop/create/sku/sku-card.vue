@@ -65,6 +65,7 @@ export default {
     
   },
   mounted () {
+    //监听拖拽
     this.$dragging.$on('dragend', (e) => {
       // console.log(e)
       if(e.group === 'skuItem'+this.index){
@@ -73,7 +74,17 @@ export default {
           value:this.list
         })
       }
+    }),
+    this.$watch('item.list',(newValue,oldValue)=>{
+      // console.log(newValue)
+      this.list = newValue
     })
+  },
+  watch: {
+    /* 'item.list'(newValue,oldValue){
+      console.log(newValue)
+      this.list = newValue
+    } */
   },
   methods: {
     ...mapMutations(['delSkuCard','vModelSkuCard','sortSkuCard','addSkuValue','sortSkuValue']),
@@ -88,6 +99,10 @@ export default {
     chooseSkus(){
       this.app.chooseSkus((res)=>{
         console.log(res)
+        this.vModel('name',this.index,res.name)
+        this.vModel('type',this.index,res.type)
+        this.vModel('list',this.index,res.list)
+        this.list = res.list
       })
     }
   }

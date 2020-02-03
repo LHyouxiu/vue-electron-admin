@@ -18,7 +18,7 @@
         <el-container>
           <el-header style="position:absolute;top:0;left:200px;right:0;height:60px;line-height:60px;" 
           class="border-top border-bottom">
-            <el-button type="primary" size="mini">
+            <el-button type="primary" size="mini" @click="doChooseAll">
               {{isChooseAll ? '取消全选':'全选'}}</el-button>
           </el-header>
           <el-main style="position: absolute;top: 60px;left:200px;bottom: 0;right: 0;">
@@ -121,18 +121,25 @@ export default {
     confirm(){
       //选中的skus
       if(typeof this.callback === 'function'){
-         this.callback(this.chooseList)
+        let item = this.skusList[this.skuIndex]
+        this.callback({
+          name:item.name,
+          type:item.type,
+          list:this.chooseList
+        })
       }
       //隐藏
       this.hide()
     },
     //关闭弹出层
     hide(){
+      this.unChooseAll();
       this.createModel = false
       this.callback = false
     },
     //切换规则卡片
     changeSku(index){
+      this.unChooseAll();
       this.skuIndex = index
     },
     //选中规格属性
@@ -156,6 +163,30 @@ export default {
       //修改选中状态
       item.ischeck = false
 
+    },
+    //选中/取消选中
+    doChooseAll(){
+      let list = this.skusList[this.skuIndex].list;
+      //是否已经全选
+      if(this.isChooseAll){//取消全选
+        return this.unChooseAll()
+      }
+      //全选
+      this.chooseList = list.map(v=>{
+        //设置全选状态
+        v.ischeck = true
+        return v
+      })
+    },
+    //取消选中所有
+    unChooseAll(){
+      let list = this.skusList[this.skuIndex].list;
+      //取消选中状态
+      list.forEach(v=>{
+        v.ischeck = false
+      })
+      //清空选中列表
+      return this.chooseList = []
     }
   }
 }

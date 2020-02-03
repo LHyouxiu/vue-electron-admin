@@ -37,7 +37,7 @@
         <td class="text-center" width="100">
           <input type="number" v-model="item.pprice" class="form-control text-center"></td>
         <td class="text-center" width="100">
-          <input type="number" v-model="item.pprice" class="form-control text-center"></td>
+          <input type="number" v-model="item.oprice" class="form-control text-center"></td>
         <td class="text-center" width="100">
           <input type="number" v-model="item.cprice" class="form-control text-center"></td>
         <td class="text-center" width="100">

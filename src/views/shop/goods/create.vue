@@ -36,15 +36,24 @@
 
           <el-form ref="form" label-width="80px">
             <el-form-item label="批量设置">
-              <el-button type="text">销售价</el-button>
-              <el-button type="text">市场价</el-button>
-              <el-button type="text">成本价</el-button>
-              <el-button type="text">库存</el-button>
-              <el-button type="text">体积</el-button>
-              <el-button type="text">重量</el-button>
+              <template v-if="!updateAllStatus">
+                <el-button type="text"
+                v-for="(btn,btnIndex) in updateList"
+                :key="btnIndex" @click="openUpdateAllStatus(btn)">{{btn.name}}</el-button>
+              </template>
+              
+              <div v-else class="d-flex align-items-center">
+                <el-input :placeholder="UpdateAllPlaceholder" size="small" 
+                style="width:150px" class="mr-2"
+                type="number" v-model="UpdateAllValue"></el-input>
+                <el-button type="primary" size="mini"
+                @click="UpdateAllSubmit">设置</el-button>
+                <el-button size="mini" @click="closeUpdateAllStatus">取消</el-button>
+              </div>
+              
             </el-form-item>
             <el-form-item label="规格设置">
-              <sku-table></sku-table>
+              <sku-table ref="table"></sku-table>
             </el-form-item>
           </el-form>
         </template>
@@ -79,6 +88,36 @@ export default {
     return {
       tabIndex:0,
       msg: 'Welcome to Use Tinymce Editor',
+      //批量修改
+      updateList:[
+        {
+          name:'销售价',
+          key:'pprice'
+        },
+        {
+          name:'市场价',
+          key:'oprice'
+        },
+        {
+          name:'成本价',
+          key:'cprice'
+        },
+        {
+          name:'库存',
+          key:'stock'
+        },
+        {
+          name:'体积',
+          key:'volume'
+        },
+        {
+          name:'重量',
+          key:'weight'
+        },
+      ],
+      updateAllStatus:false,
+      UpdateAllPlaceholder:'',
+      UpdateAllValue:''
     }
   },
   components: {
@@ -116,6 +155,23 @@ export default {
       console.log(e)
       console.log(editor)
     },
+    //修改批量设置状态
+    openUpdateAllStatus(item){
+      this.updateAllStatus = item.key,
+      this.UpdateAllPlaceholder = item.name
+    },
+    //取消批量设置状态
+    closeUpdateAllStatus(){
+      this.updateAllStatus = false;
+      this.UpdateAllValue = ''
+    },
+    //提交批量设置
+    UpdateAllSubmit(){
+      this.$refs.table.list.forEach(item=>{
+        item[this.updateAllStatus] = this.UpdateAllValue
+      });
+      this.closeUpdateAllStatus()
+    }
   }
 }
 </script>
