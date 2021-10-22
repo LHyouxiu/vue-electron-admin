@@ -18,7 +18,7 @@
     "core-js": "^3.4.4",
     "echarts": "^4.6.0",
     "element-ui": "^2.13.0",
-    "tinymce": "^5.1.6",
+    "tinymce": "^5.9.0",
     "video.js": "^7.6.6",
     "vue": "^2.6.10",
     "vue-router": "^3.1.3",
